@@ -14,6 +14,11 @@
 		5DAE460715505A5D00E77E57 /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAE460615505A5D00E77E57 /* cute_image.jpg */; };
 		5DAE460915505A5D00E77E57 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAE460815505A5D00E77E57 /* nice_music.ogg */; };
 		5DAE460E15505A5D00E77E57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DAE460C15505A5D00E77E57 /* InfoPlist.strings */; };
+		5DAE461915505D8F00E77E57 /* ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAE461815505D8F00E77E57 /* ship.png */; };
+		5DAE461B155070E900E77E57 /* shot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAE461A155070E900E77E57 /* shot.png */; };
+		5DD3098915536D5E005AB4E5 /* Monster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DD3098815536D5E005AB4E5 /* Monster.cpp */; };
+		5DD309941553770A005AB4E5 /* MonsterMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DD309931553770A005AB4E5 /* MonsterMatrix.cpp */; };
+		5DD3099615537AA4005AB4E5 /* monster1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DD3099515537AA4005AB4E5 /* monster1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,12 +26,19 @@
 		5DAE45FB15505A5D00E77E57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5DAE45FE15505A5D00E77E57 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5DAE460015505A5D00E77E57 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
-		5DAE460215505A5D00E77E57 /* ResourcePath.hpp */ = {isa = PBXFileReference; path = ResourcePath.hpp; sourceTree = "<group>"; };
+		5DAE460215505A5D00E77E57 /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		5DAE460415505A5D00E77E57 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		5DAE460615505A5D00E77E57 /* cute_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cute_image.jpg; sourceTree = "<group>"; };
 		5DAE460815505A5D00E77E57 /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
-		5DAE460B15505A5D00E77E57 /* SpaceInvaders-Info.plist */ = {isa = PBXFileReference; path = "SpaceInvaders-Info.plist"; sourceTree = "<group>"; };
+		5DAE460B15505A5D00E77E57 /* SpaceInvaders-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpaceInvaders-Info.plist"; sourceTree = "<group>"; };
 		5DAE460D15505A5D00E77E57 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5DAE461815505D8F00E77E57 /* ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship.png; sourceTree = "<group>"; };
+		5DAE461A155070E900E77E57 /* shot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shot.png; sourceTree = "<group>"; };
+		5DD3098815536D5E005AB4E5 /* Monster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Monster.cpp; sourceTree = "<group>"; };
+		5DD3098B15536D85005AB4E5 /* Monster.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Monster.hpp; sourceTree = "<group>"; };
+		5DD309921553748F005AB4E5 /* MonsterMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MonsterMatrix.hpp; sourceTree = "<group>"; };
+		5DD309931553770A005AB4E5 /* MonsterMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MonsterMatrix.cpp; sourceTree = "<group>"; };
+		5DD3099515537AA4005AB4E5 /* monster1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monster1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +86,10 @@
 				5DAE460215505A5D00E77E57 /* ResourcePath.hpp */,
 				5DAE460315505A5D00E77E57 /* Resources */,
 				5DAE460A15505A5D00E77E57 /* Supporting Files */,
+				5DD3098815536D5E005AB4E5 /* Monster.cpp */,
+				5DD3098B15536D85005AB4E5 /* Monster.hpp */,
+				5DD309921553748F005AB4E5 /* MonsterMatrix.hpp */,
+				5DD309931553770A005AB4E5 /* MonsterMatrix.cpp */,
 			);
 			path = SpaceInvaders;
 			sourceTree = "<group>";
@@ -81,6 +97,9 @@
 		5DAE460315505A5D00E77E57 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5DAE461A155070E900E77E57 /* shot.png */,
+				5DD3099515537AA4005AB4E5 /* monster1.png */,
+				5DAE461815505D8F00E77E57 /* ship.png */,
 				5DAE460415505A5D00E77E57 /* sansation.ttf */,
 				5DAE460615505A5D00E77E57 /* cute_image.jpg */,
 				5DAE460815505A5D00E77E57 /* nice_music.ogg */,
@@ -152,6 +171,9 @@
 				5DAE460715505A5D00E77E57 /* cute_image.jpg in Resources */,
 				5DAE460915505A5D00E77E57 /* nice_music.ogg in Resources */,
 				5DAE460E15505A5D00E77E57 /* InfoPlist.strings in Resources */,
+				5DAE461915505D8F00E77E57 /* ship.png in Resources */,
+				5DAE461B155070E900E77E57 /* shot.png in Resources */,
+				5DD3099615537AA4005AB4E5 /* monster1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +202,8 @@
 			files = (
 				5DAE45FF15505A5D00E77E57 /* main.cpp in Sources */,
 				5DAE460115505A5D00E77E57 /* ResourcePath.mm in Sources */,
+				5DD3098915536D5E005AB4E5 /* Monster.cpp in Sources */,
+				5DD309941553770A005AB4E5 /* MonsterMatrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +356,7 @@
 				5DAE461315505A5D00E77E57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

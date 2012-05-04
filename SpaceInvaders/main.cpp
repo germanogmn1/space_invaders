@@ -3,61 +3,127 @@
 #include <SFML/Network.hpp>
 #include "ResourcePath.hpp"
 
+#include "MonsterMatrix.hpp"
+
+#define WIN_W  800
+#define WIN_H 600
+
+#define SHIP_W 46
+#define SHIP_H 28
+
+#define SHOT_W 5
+#define SHOT_H 15
+
+#define SHOT_VEL 0.5f
+
+sf::Vector2f getSpriteCenter(sf::Sprite&);
+bool spritesColide(sf::Sprite&, sf::Sprite&);
+
 int main (int argc, const char * argv[])
 {
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-
-    // Load a sprite to display
-    sf::Texture texture;
-    if (!texture.loadFromFile(resourcePath() + "cute_image.jpg"))
-    	return EXIT_FAILURE;
-    sf::Sprite sprite(texture);
-
-    // Create a graphical text to display
-    sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "sansation.ttf"))
-    	return EXIT_FAILURE;
-    sf::Text text("Hello SFML", font, 50);
-    text.setColor(sf::Color::Black);
-
-    // Load a music to play
-    sf::Music music;
-    if (!music.openFromFile(resourcePath() + "nice_music.ogg"))
-    	return EXIT_FAILURE;
-
-    // Play the music
-    music.play();
-        
-
-    // Start the game loop
+    // ==============
+    // Init Resources
+    // ==============
+    sf::RenderWindow window(sf::VideoMode(WIN_W, WIN_H), "Space Invaders");
+    
+    // Load Ship
+    sf::Texture shipTexture;
+    if (!shipTexture.loadFromFile(resourcePath() + "ship.png"))
+        return EXIT_FAILURE;
+    sf::Sprite shipSprite(shipTexture);
+    
+    // Load Shot
+    sf::Texture shotTexture;
+    if (!shotTexture.loadFromFile(resourcePath() + "shot.png"))
+        return EXIT_FAILURE;
+    sf::Sprite shotSprite(shotTexture);
+    
+    bool shot = false;
+    sf::Vector2f shotPos(0, 0);
+    
+    // Load Monsters
+    MonsterMatrix matrix(sf::FloatRect(20, 20, 760, 400));
+    
     while (window.isOpen())
     {
-    	// Process events
-    	sf::Event event;
-    	while (window.pollEvent(event))
-    	{
-    		// Close window : exit
-    		if (event.type == sf::Event::Closed)
-    			window.close();
+        // ============
+        // Handle Input
+        // ============
+        
+        // Handle mouse position
+        float shipX = sf::Mouse::getPosition(window).x;
+        float shipOffset = (SHIP_W / 2);
+        
+        if (shipX < shipOffset) {
+            shipX = 0;
+        }
+        else if (shipX > (WIN_W - SHIP_W / 2)) {
+            shipX = (WIN_W - SHIP_W);
+        }
+        else {
+            shipX -= shipOffset;
+        }
+        
+        shipSprite.setPosition(shipX, (WIN_H - 50));
+        
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
             
-    		// Escape pressed : exit
-    		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-    			window.close();
-    	}
-
-    	// Clear screen
-    	window.clear();
-    	
-    	// Draw the sprite
-    	window.draw(sprite);
-    	
-    	// Draw the string
-    	window.draw(text);
-
-    	// Update the window
-    	window.display();
+            if (!shot && event.type == sf::Event::MouseButtonPressed &&
+                event.mouseButton.button == sf::Mouse::Left) {
+                // Start shot centered on the ship
+                shot = true;
+                shotPos.x = getSpriteCenter(shipSprite).x - (SHOT_W / 2);
+                shotPos.y = shipSprite.getPosition().y - SHOT_H;
+            }
+        }
+        
+        if (shot) {
+            // Handle Shot Position
+            shotPos.y -= SHOT_VEL;
+            shotSprite.setPosition(shotPos);
+            
+            if (shotPos.y < 0)
+                shot = false;
+            
+            // Handle shot colision
+            if (matrix.collides(shotSprite)) {
+                shot = false;
+            }
+            
+        }
+        
+        matrix.step();
+        
+        // ======
+        // Render
+        // ======
+        window.clear();
+        
+        window.draw(shipSprite);
+        window.draw(matrix);
+        
+        if (shot)
+            window.draw(shotSprite);
+        
+        window.display();
+        
     }
 
 	return EXIT_SUCCESS;
 }
+
+sf::Vector2f getSpriteCenter(sf::Sprite &sprite)
+{
+    sf::FloatRect rect = sprite.getGlobalBounds();
+    return sf::Vector2f(rect.width / 2 + rect.left, rect.height / 2 + rect.top);
+}
+
+bool spritesColide(sf::Sprite &sa, sf::Sprite &sb)
+{
+    return sa.getGlobalBounds().intersects(sb.getGlobalBounds());
+}
+
