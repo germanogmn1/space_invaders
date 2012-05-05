@@ -23,3 +23,8 @@ bool Monster::collides(sf::Sprite& other)
     }
     return false;
 }
+
+bool Monster::isAlive()
+{
+    return alive;
+}

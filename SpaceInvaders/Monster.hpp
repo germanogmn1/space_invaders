@@ -9,4 +9,5 @@ public:
     Monster(sf::Texture&);
     bool collides(sf::Sprite&);
     sf::Sprite sprite;
+    bool isAlive();
 };

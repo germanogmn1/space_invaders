@@ -11,18 +11,20 @@ class MonsterMatrix : public sf::Drawable
     Monster * monsters[rows][columns];
     
     sf::FloatRect sandBox;
-    sf::FloatRect bounds;
-    void calcBounds();
+    sf::Vector2f origin;
     void positionMonsters();
-    struct {
-        int begin, end;
-    } aliveRange;
     
     int stepCounter;
     bool stepToRight;
     
+    bool leftCollision(sf::Vector2f);
+    bool rightCollision(sf::Vector2f);
+    int firstAliveCol, lastAliveCol;
+    bool isColumnAlive(int);
+    
 public:
     MonsterMatrix(sf::FloatRect);
+    ~MonsterMatrix();
     
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
     

@@ -15,12 +15,6 @@ MonsterMatrix::MonsterMatrix(sf::FloatRect area)
     
     texture.loadFromFile(resourcePath() + "monster1.png");
     
-    // Start at top-left of the sandbox
-    bounds.left = sandBox.left;
-    bounds.top = sandBox.top;
-    bounds.width = (MATRIX_MONSTER_W * columns) + (MATRIX_MONSTER_MARGIN * (columns - 1));
-    bounds.height = (MATRIX_MONSTER_H * rows) + (MATRIX_MONSTER_MARGIN * (rows - 1));
-    
     // Setup steps
     stepCounter = MATRIX_STEP_DELAY;
     stepToRight = true;
@@ -28,12 +22,23 @@ MonsterMatrix::MonsterMatrix(sf::FloatRect area)
     for (int row = 0; row < rows; row++)
         for (int col = 0; col < columns; col++)
             monsters[row][col] = new Monster(texture);
-
+    
+    // Start at top-left of the sandbox
+    origin.x = sandBox.left;
+    origin.y = sandBox.top;
+    
     // Everyone is alive
-    aliveRange.begin = 0;
-    aliveRange.end = columns - 1;
+    lastAliveCol = columns - 1;
+    firstAliveCol = 0;
     
     positionMonsters();
+}
+
+MonsterMatrix::~MonsterMatrix()
+{
+    for (int row = 0; row < rows; row++)
+        for (int col = 0; col < columns; col++)
+            delete monsters[row][col];
 }
 
 //
@@ -41,8 +46,8 @@ MonsterMatrix::MonsterMatrix(sf::FloatRect area)
 //
 void MonsterMatrix::positionMonsters()
 {
-    float x = bounds.left,
-          y = bounds.top;
+    float x = origin.x,
+          y = origin.y;
     
     for (int row = 0; row < rows; row++)
     {
@@ -52,7 +57,7 @@ void MonsterMatrix::positionMonsters()
             x += MATRIX_MONSTER_W + MATRIX_MONSTER_MARGIN;
         }
         y += MATRIX_MONSTER_H + MATRIX_MONSTER_MARGIN;
-        x = bounds.left;
+        x = origin.x;
     }
 }
 
@@ -77,7 +82,6 @@ bool MonsterMatrix::collides(sf::Sprite& shot)
         for (int col = 0; col < columns; col++)
         {
             if (monsters[row][col]->collides(shot)) {
-                calcBounds();
                 return true;
             }
         }
@@ -86,7 +90,7 @@ bool MonsterMatrix::collides(sf::Sprite& shot)
 }
 
 //
-// Move the matrix a step
+// Move the matrix a step inside sandbox
 //
 void MonsterMatrix::step()
 {
@@ -95,39 +99,65 @@ void MonsterMatrix::step()
         return;
     stepCounter = MATRIX_STEP_DELAY;
     
-    sf::FloatRect newPos(bounds);
+    sf::Vector2f newPos(origin);
     
-    newPos.left += MATRIX_STEP_SIZE * (stepToRight ? 1 : -1);
+    newPos.x += MATRIX_STEP_SIZE * (stepToRight ? 1 : -1);
     
-    if (stepToRight && (newPos.left + newPos.width) > (sandBox.left + sandBox.width)) {
-        // right collision
+    if (stepToRight && rightCollision(newPos)) {
         stepToRight = false;
-        bounds.top += MATRIX_STEP_SIZE;
+        origin.y += MATRIX_STEP_SIZE;
     }
-    else if (newPos.left < sandBox.left) {
-        // left collision
+    else if (!stepToRight && leftCollision(newPos)) {
         stepToRight = true;
-        bounds.top += MATRIX_STEP_SIZE;
+        origin.y += MATRIX_STEP_SIZE;
     }
     else {
-        // no collision
-        bounds = newPos;
+        origin = newPos;
     }
     
     positionMonsters();
 }
 
-void MonsterMatrix::calcBounds()
+//
+// Check if there was a collision with the left edge of the sandbox
+//
+bool MonsterMatrix::leftCollision(sf::Vector2f newOrigin)
 {
-    // TODO
-    int col = aliveRange.begin;
+    while (!isColumnAlive(firstAliveCol))
+        firstAliveCol++;
     
-    for (int row = 0; row < rows; row++)
-    {
-        if (monsters[row][col]->alive) {
-            
-        }
-    }
+    float padding = firstAliveCol * (MATRIX_MONSTER_W + MATRIX_MONSTER_MARGIN);
+    
+    if (origin.x + padding <= sandBox.left)
+        return true;
+    
+    return false;
 }
 
+//
+// Check if there was a collision with the right edge of the sandbox
+//
+bool MonsterMatrix::rightCollision(sf::Vector2f newOrigin)
+{
+    while (!isColumnAlive(lastAliveCol))
+        lastAliveCol--;
+    
+    float width = (MATRIX_MONSTER_W + MATRIX_MONSTER_MARGIN) * (lastAliveCol + 1);
+    width -= MATRIX_MONSTER_MARGIN; // ignore last monster margin
+    
+    if (origin.x + width >= sandBox.left + sandBox.width)
+        return true;
+    
+    return false;
+}
 
+bool MonsterMatrix::isColumnAlive(int col)
+{
+    for (int row = 0; row < rows; row++)
+    {
+        if (monsters[row][col]->isAlive()) {
+            return true;
+        }
+    }
+    return false;
+}
