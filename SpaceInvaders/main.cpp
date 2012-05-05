@@ -5,7 +5,7 @@
 
 #include "MonsterMatrix.hpp"
 
-#define WIN_W  800
+#define WIN_W 800
 #define WIN_H 600
 
 #define SHIP_W 46
@@ -19,7 +19,7 @@
 sf::Vector2f getSpriteCenter(sf::Sprite&);
 bool spritesColide(sf::Sprite&, sf::Sprite&);
 
-int main (int argc, const char * argv[])
+int main (int argc, const char* argv[])
 {
     // ==============
     // Init Resources
@@ -93,7 +93,6 @@ int main (int argc, const char * argv[])
             if (matrix.collides(shotSprite)) {
                 shot = false;
             }
-            
         }
         
         matrix.step();
@@ -121,9 +120,3 @@ sf::Vector2f getSpriteCenter(sf::Sprite &sprite)
     sf::FloatRect rect = sprite.getGlobalBounds();
     return sf::Vector2f(rect.width / 2 + rect.left, rect.height / 2 + rect.top);
 }
-
-bool spritesColide(sf::Sprite &sa, sf::Sprite &sb)
-{
-    return sa.getGlobalBounds().intersects(sb.getGlobalBounds());
-}
-

@@ -1,8 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include "ResourcePath.hpp"
+#include "ResourcePath.mm"
 #include "Monster.hpp"
 
-// TODO destructor
 class MonsterMatrix : public sf::Drawable
 {
     sf::Texture texture;
