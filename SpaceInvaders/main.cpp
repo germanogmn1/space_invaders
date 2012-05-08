@@ -4,6 +4,7 @@
 #include "ResourcePath.hpp"
 
 #include "MonsterMatrix.hpp"
+#include "Shot.hpp"
 
 #define WIN_W 800
 #define WIN_H 600
@@ -11,13 +12,7 @@
 #define SHIP_W 46
 #define SHIP_H 28
 
-#define SHOT_W 5
-#define SHOT_H 15
-
-#define SHOT_VEL 0.5f
-
 sf::Vector2f getSpriteCenter(sf::Sprite&);
-bool spritesColide(sf::Sprite&, sf::Sprite&);
 
 int main (int argc, const char* argv[])
 {
@@ -38,11 +33,11 @@ int main (int argc, const char* argv[])
         return EXIT_FAILURE;
     sf::Sprite shotSprite(shotTexture);
     
-    bool shot = false;
-    sf::Vector2f shotPos(0, 0);
+    Shot shipShot(shotTexture, Shot::UP, 0.5);
+    Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
     
     // Load Monsters
-    MonsterMatrix matrix(sf::FloatRect(20, 20, 760, 400));
+    MonsterMatrix matrix(sf::FloatRect(20, 20, 760, 400), monsterShot);
     
     while (window.isOpen())
     {
@@ -66,36 +61,31 @@ int main (int argc, const char* argv[])
         
         shipSprite.setPosition(shipX, (WIN_H - 50));
         
+        // ======
+        // Events
+        // ======
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
             
-            if (!shot && event.type == sf::Event::MouseButtonPressed &&
+            if (!shipShot.alive &&
+                event.type == sf::Event::MouseButtonPressed &&
                 event.mouseButton.button == sf::Mouse::Left) {
-                // Start shot centered on the ship
-                shot = true;
-                shotPos.x = getSpriteCenter(shipSprite).x - (SHOT_W / 2);
-                shotPos.y = shipSprite.getPosition().y - SHOT_H;
-            }
-        }
-        
-        if (shot) {
-            // Handle Shot Position
-            shotPos.y -= SHOT_VEL;
-            shotSprite.setPosition(shotPos);
-            
-            if (shotPos.y < 0)
-                shot = false;
-            
-            // Handle shot colision
-            if (matrix.collides(shotSprite)) {
-                shot = false;
+                
+                shipShot.spawnAt(
+                    getSpriteCenter(shipSprite).x,
+                    shipSprite.getPosition().y
+                );
             }
         }
         
         matrix.step();
+        shipShot.step();
+        monsterShot.step();
+        
+        matrix.collides(shipShot);
         
         // ======
         // Render
@@ -104,12 +94,10 @@ int main (int argc, const char* argv[])
         
         window.draw(shipSprite);
         window.draw(matrix);
+        window.draw(shipShot);
+        window.draw(monsterShot);
         
-        if (shot)
-            window.draw(shotSprite);
-        
-        window.display();
-        
+        window.display();   
     }
 
 	return EXIT_SUCCESS;

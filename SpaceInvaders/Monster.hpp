@@ -1,13 +1,21 @@
 #include <SFML/Graphics.hpp>
+#include "Shot.hpp"
 
-class Monster {
+#ifndef MONSTER_HPP
+#define MONSTER_HPP
+
+class Monster : public sf::Drawable
+{
     static sf::Texture texture();
-    bool alive;
-    void die();
     
 public:
     Monster(sf::Texture&);
-    bool collides(sf::Sprite&);
+    bool collides(Shot&);
+    
     sf::Sprite sprite;
-    bool isAlive();
+    bool alive;
+    
+    virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 };
+
+#endif

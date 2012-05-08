@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D9ED5541555F37300B328FB /* Shot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D9ED5531555F37300B328FB /* Shot.cpp */; };
 		5DAE45FC15505A5D00E77E57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DAE45FB15505A5D00E77E57 /* Foundation.framework */; };
 		5DAE45FF15505A5D00E77E57 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE45FE15505A5D00E77E57 /* main.cpp */; };
 		5DAE460115505A5D00E77E57 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE460015505A5D00E77E57 /* ResourcePath.mm */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D9ED5511555F29900B328FB /* Shot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shot.hpp; sourceTree = "<group>"; };
+		5D9ED5531555F37300B328FB /* Shot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shot.cpp; sourceTree = "<group>"; };
 		5DAE45F715505A5D00E77E57 /* SpaceInvaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceInvaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DAE45FB15505A5D00E77E57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5DAE45FE15505A5D00E77E57 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -90,6 +93,8 @@
 				5DD3098B15536D85005AB4E5 /* Monster.hpp */,
 				5DD309921553748F005AB4E5 /* MonsterMatrix.hpp */,
 				5DD309931553770A005AB4E5 /* MonsterMatrix.cpp */,
+				5D9ED5511555F29900B328FB /* Shot.hpp */,
+				5D9ED5531555F37300B328FB /* Shot.cpp */,
 			);
 			path = SpaceInvaders;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 				5DAE460115505A5D00E77E57 /* ResourcePath.mm in Sources */,
 				5DD3098915536D5E005AB4E5 /* Monster.cpp in Sources */,
 				5DD309941553770A005AB4E5 /* MonsterMatrix.cpp in Sources */,
+				5D9ED5541555F37300B328FB /* Shot.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

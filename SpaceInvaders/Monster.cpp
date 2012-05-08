@@ -6,25 +6,24 @@ Monster::Monster(sf::Texture& texture)
     sprite.setTexture(texture);
 }
 
-void Monster::die()
-{
-    alive = false;
-    sprite.setColor(sf::Color::Transparent);
-}
-
 //
 // Processes collision with another sprite if it occurs
 //
-bool Monster::collides(sf::Sprite& other)
+bool Monster::collides(Shot& shot)
 {
-    if (alive && sprite.getGlobalBounds().intersects(other.getGlobalBounds())) {
-        die();
+    if (alive && sprite.getGlobalBounds().intersects(shot.sprite.getGlobalBounds())) {
+        alive = false;
+        shot.alive = false;
         return true;
     }
     return false;
 }
 
-bool Monster::isAlive()
+//
+// Drawable implementation
+//
+void Monster::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    return alive;
+    if (alive)
+        target.draw(sprite);
 }
