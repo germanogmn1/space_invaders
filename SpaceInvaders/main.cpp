@@ -97,7 +97,7 @@ int main (int argc, const char * argv[])
     if (!shotTexture.loadFromFile(resourcePath() + "shot.png"))
         return EXIT_FAILURE;
     
-    Shot shipShot(shotTexture, Shot::UP, 0.5);
+    Shot shipShot(shotTexture, Shot::UP, 0.01);
     Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
     
     // Font for interface
@@ -162,8 +162,9 @@ int main (int argc, const char * argv[])
                 event.type == sf::Event::MouseButtonPressed &&
                 event.mouseButton.button == sf::Mouse::Left) {
                 
+                sf::FloatRect shipRect = shipSprite.getGlobalBounds();
                 shipShot.spawnAt(
-                    getSpriteCenter(shipSprite).x,
+                    shipRect.width / 2 + shipRect.left,
                     shipSprite.getPosition().y
                 );
             }

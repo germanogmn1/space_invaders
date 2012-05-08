@@ -11,6 +11,7 @@ Shot::Shot(sf::Texture& texture, Direction direction, float speed)
 
 void Shot::spawnAt(float x, float y)
 {
+    x -= sprite.getTexture()->getSize().x / 2;
     sprite.setPosition(x, y);
     alive = true;
 }
