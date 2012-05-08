@@ -78,9 +78,10 @@ void MonsterMatrix::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 }
 
 //
-// Check if some monster in matrix collides with the shot and process it
+// Check if the shot collides with some monster in matrix
+// then process it and returns the achieved score
 //
-bool MonsterMatrix::collides(Shot& shot)
+int MonsterMatrix::strikeWith(Shot& shot)
 {
     if (!shot.alive)
         return false;
@@ -90,11 +91,11 @@ bool MonsterMatrix::collides(Shot& shot)
         for (int col = 0; col < columns; col++)
         {
             if (monsters[row][col]->alive && monsters[row][col]->collides(shot)) {
-                return true;
+                return rows - row; // higher row, higher score
             }
         }
     }
-    return false;
+    return 0;
 }
 
 //

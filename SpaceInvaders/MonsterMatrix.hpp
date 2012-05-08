@@ -11,7 +11,7 @@ class MonsterMatrix : public sf::Drawable
 {
     sf::Texture texture;
     
-    const static int columns = 3, rows = 3;
+    const static int columns = 11, rows = 5;
     Monster * monsters[rows][columns];
     Shot * shot;
     
@@ -35,7 +35,7 @@ public:
     
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
     
-    bool collides(Shot&);
+    int strikeWith(Shot&);
     void step();
 };
 

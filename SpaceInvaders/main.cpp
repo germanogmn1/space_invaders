@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
@@ -27,14 +28,23 @@ int main (int argc, const char* argv[])
         return EXIT_FAILURE;
     sf::Sprite shipSprite(shipTexture);
     
-    // Load Shot
+    // Load Shots
     sf::Texture shotTexture;
     if (!shotTexture.loadFromFile(resourcePath() + "shot.png"))
         return EXIT_FAILURE;
-    sf::Sprite shotSprite(shotTexture);
     
     Shot shipShot(shotTexture, Shot::UP, 0.5);
     Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
+    
+    // Score
+    int score = 0;
+    sf::Font font;
+    if (!font.loadFromFile(resourcePath() + "sansation.ttf"))
+        return EXIT_FAILURE;
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setCharacterSize(20);
+    scoreText.setOrigin(-10, -10);
     
     // Load Monsters
     MonsterMatrix matrix(sf::FloatRect(20, 20, 760, 400), monsterShot);
@@ -81,11 +91,18 @@ int main (int argc, const char* argv[])
             }
         }
         
+        // Move objects
         matrix.step();
         shipShot.step();
         monsterShot.step();
         
-        matrix.collides(shipShot);
+        // Handle collisions
+        score += matrix.strikeWith(shipShot);
+        
+        // Format score text
+        char * scoreBuffer;
+        std::sprintf(scoreBuffer, "SCORE: %d", score);
+        scoreText.setString(sf::String(scoreBuffer));
         
         // ======
         // Render
@@ -96,6 +113,7 @@ int main (int argc, const char* argv[])
         window.draw(matrix);
         window.draw(shipShot);
         window.draw(monsterShot);
+        window.draw(scoreText);
         
         window.display();   
     }
