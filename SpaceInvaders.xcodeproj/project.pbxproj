@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D104109155990AD00B06F0A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D104108155990AD00B06F0A /* splash.png */; };
+		5D183AED15599F4E00515B83 /* game_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D183AEC15599F4E00515B83 /* game_over.png */; };
+		5D183AF01559A2B800515B83 /* Andale Mono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D183AEF1559A2B800515B83 /* Andale Mono.ttf */; };
 		5D9ED5541555F37300B328FB /* Shot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D9ED5531555F37300B328FB /* Shot.cpp */; };
 		5DAE45FC15505A5D00E77E57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DAE45FB15505A5D00E77E57 /* Foundation.framework */; };
 		5DAE45FF15505A5D00E77E57 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE45FE15505A5D00E77E57 /* main.cpp */; };
@@ -23,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D104108155990AD00B06F0A /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		5D183AEC15599F4E00515B83 /* game_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_over.png; sourceTree = "<group>"; };
+		5D183AEF1559A2B800515B83 /* Andale Mono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Andale Mono.ttf"; sourceTree = "<group>"; };
 		5D9ED5511555F29900B328FB /* Shot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shot.hpp; sourceTree = "<group>"; };
 		5D9ED5531555F37300B328FB /* Shot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shot.cpp; sourceTree = "<group>"; };
 		5DAE45F715505A5D00E77E57 /* SpaceInvaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceInvaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +108,9 @@
 		5DAE460315505A5D00E77E57 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5D183AEF1559A2B800515B83 /* Andale Mono.ttf */,
+				5D183AEC15599F4E00515B83 /* game_over.png */,
+				5D104108155990AD00B06F0A /* splash.png */,
 				5DAE461A155070E900E77E57 /* shot.png */,
 				5DD3099515537AA4005AB4E5 /* monster1.png */,
 				5DAE461815505D8F00E77E57 /* ship.png */,
@@ -179,6 +188,9 @@
 				5DAE461915505D8F00E77E57 /* ship.png in Resources */,
 				5DAE461B155070E900E77E57 /* shot.png in Resources */,
 				5DD3099615537AA4005AB4E5 /* monster1.png in Resources */,
+				5D104109155990AD00B06F0A /* splash.png in Resources */,
+				5D183AED15599F4E00515B83 /* game_over.png in Resources */,
+				5D183AF01559A2B800515B83 /* Andale Mono.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

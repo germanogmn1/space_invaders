@@ -15,7 +15,71 @@
 
 sf::Vector2f getSpriteCenter(sf::Sprite&);
 
-int main (int argc, const char* argv[])
+void splashScreen(sf::RenderWindow& window)
+{
+    sf::Texture splashTexture;
+    splashTexture.loadFromFile(resourcePath() + "splash.png");
+    sf::Sprite splashSprite(splashTexture);
+    
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+            
+            if (event.type == sf::Event::KeyPressed &&
+                event.key.code == sf::Keyboard::Escape)
+                window.close();
+            
+            if (event.type == sf::Event::KeyPressed &&
+                event.key.code == sf::Keyboard::Space)
+                return;
+        }
+        
+        window.clear();
+        window.draw(splashSprite);
+        window.display();
+    }
+}
+
+void gameOverScreen(sf::RenderWindow& window, int score, sf::Font& font)
+{
+    sf::Texture splashTexture;
+    splashTexture.loadFromFile(resourcePath() + "game_over.png");
+    sf::Sprite splashSprite(splashTexture);
+    
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setCharacterSize(24);
+    scoreText.setOrigin(-300, -400);
+    
+    char scoreBuffer[20];
+    std::sprintf(scoreBuffer, "SCORE: %d", score);
+    scoreText.setString(sf::String(scoreBuffer));
+    
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+            
+            if (event.type == sf::Event::KeyPressed &&
+                event.key.code == sf::Keyboard::Escape)
+                window.close();
+        }
+        
+        window.clear();
+        window.draw(splashSprite);
+        window.draw(scoreText);
+        window.display();
+    }
+}
+
+int main (int argc, const char * argv[])
 {
     // ==============
     // Init Resources
@@ -36,18 +100,32 @@ int main (int argc, const char* argv[])
     Shot shipShot(shotTexture, Shot::UP, 0.5);
     Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
     
-    // Score
-    int score = 0;
+    // Font for interface
     sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "sansation.ttf"))
+    if (!font.loadFromFile(resourcePath() + "Andale Mono.ttf"))
         return EXIT_FAILURE;
+    
+    // Score 
+    int score = 0;
     sf::Text scoreText;
     scoreText.setFont(font);
     scoreText.setCharacterSize(20);
     scoreText.setOrigin(-10, -10);
     
+    // Lives
+    int lives = 3;
+    sf::Text livesText;
+    livesText.setFont(font);
+    livesText.setCharacterSize(20);
+    livesText.setOrigin(-700, -10);
+    
     // Load Monsters
-    MonsterMatrix matrix(sf::FloatRect(20, 20, 760, 400), monsterShot);
+    MonsterMatrix matrix(sf::FloatRect(20, 40, 760, 380), monsterShot);
+    
+    // =============
+    // Splash Screen
+    // =============
+    splashScreen(window);
     
     while (window.isOpen())
     {
@@ -97,12 +175,28 @@ int main (int argc, const char* argv[])
         monsterShot.step();
         
         // Handle collisions
+        if (monsterShot.alive &&
+            monsterShot.sprite.getGlobalBounds().intersects(shipSprite.getGlobalBounds())) {
+            lives--;
+            monsterShot.alive = false;
+        }
+        
+        if (!lives) {
+            gameOverScreen(window, score, font);
+            return EXIT_SUCCESS;
+        }
+        
         score += matrix.strikeWith(shipShot);
         
-        // Format score text
-        char * scoreBuffer;
+        // Score text
+        char scoreBuffer[20];
         std::sprintf(scoreBuffer, "SCORE: %d", score);
         scoreText.setString(sf::String(scoreBuffer));
+        
+        // Lives text
+        char livesBuffer[20];
+        std::sprintf(livesBuffer, "LIVES: %d", lives);
+        livesText.setString(sf::String(livesBuffer));
         
         // ======
         // Render
@@ -114,8 +208,9 @@ int main (int argc, const char* argv[])
         window.draw(shipShot);
         window.draw(monsterShot);
         window.draw(scoreText);
+        window.draw(livesText);
         
-        window.display();   
+        window.display();
     }
 
 	return EXIT_SUCCESS;
