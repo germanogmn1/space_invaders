@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D104109155990AD00B06F0A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D104108155990AD00B06F0A /* splash.png */; };
+		5D143208155B175F00ED2C59 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5D143207155B175F00ED2C59 /* hit.wav */; };
 		5D183AED15599F4E00515B83 /* game_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D183AEC15599F4E00515B83 /* game_over.png */; };
 		5D183AF01559A2B800515B83 /* Andale Mono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D183AEF1559A2B800515B83 /* Andale Mono.ttf */; };
 		5D9ED5541555F37300B328FB /* Shot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D9ED5531555F37300B328FB /* Shot.cpp */; };
@@ -23,10 +24,12 @@
 		5DD3098915536D5E005AB4E5 /* Monster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DD3098815536D5E005AB4E5 /* Monster.cpp */; };
 		5DD309941553770A005AB4E5 /* MonsterMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DD309931553770A005AB4E5 /* MonsterMatrix.cpp */; };
 		5DD3099615537AA4005AB4E5 /* monster1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DD3099515537AA4005AB4E5 /* monster1.png */; };
+		5DDB539B1561ADBF00CDAC59 /* bonus_ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DDB539A1561ADBF00CDAC59 /* bonus_ship.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5D104108155990AD00B06F0A /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		5D143207155B175F00ED2C59 /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
 		5D183AEC15599F4E00515B83 /* game_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_over.png; sourceTree = "<group>"; };
 		5D183AEF1559A2B800515B83 /* Andale Mono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Andale Mono.ttf"; sourceTree = "<group>"; };
 		5D9ED5511555F29900B328FB /* Shot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shot.hpp; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 		5DD309921553748F005AB4E5 /* MonsterMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MonsterMatrix.hpp; sourceTree = "<group>"; };
 		5DD309931553770A005AB4E5 /* MonsterMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MonsterMatrix.cpp; sourceTree = "<group>"; };
 		5DD3099515537AA4005AB4E5 /* monster1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monster1.png; sourceTree = "<group>"; };
+		5DDB539A1561ADBF00CDAC59 /* bonus_ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bonus_ship.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 		5DAE460315505A5D00E77E57 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5D143207155B175F00ED2C59 /* hit.wav */,
+				5DDB539A1561ADBF00CDAC59 /* bonus_ship.png */,
 				5D183AEF1559A2B800515B83 /* Andale Mono.ttf */,
 				5D183AEC15599F4E00515B83 /* game_over.png */,
 				5D104108155990AD00B06F0A /* splash.png */,
@@ -191,6 +197,8 @@
 				5D104109155990AD00B06F0A /* splash.png in Resources */,
 				5D183AED15599F4E00515B83 /* game_over.png in Resources */,
 				5D183AF01559A2B800515B83 /* Andale Mono.ttf in Resources */,
+				5D143208155B175F00ED2C59 /* hit.wav in Resources */,
+				5DDB539B1561ADBF00CDAC59 /* bonus_ship.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

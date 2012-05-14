@@ -1,6 +1,5 @@
 #include "MonsterMatrix.hpp"
 
-#define MATRIX_STEP_DELAY 250
 #define MATRIX_STEP_SIZE 10
 #define MATRIX_SHOT_CHANCE 5
 
@@ -17,8 +16,10 @@ MonsterMatrix::MonsterMatrix(sf::FloatRect area, Shot& monsterShot)
     shot = &monsterShot;
     texture.loadFromFile(resourcePath() + "monster1.png");
     
-    // Setup steps
-    stepCounter = MATRIX_STEP_DELAY;
+    // Initial velocity
+    stepDelay = 250;
+    stepCounter = stepDelay;
+    // Initial direction
     stepToRight = true;
     
     // Load monsters
@@ -36,6 +37,8 @@ MonsterMatrix::MonsterMatrix(sf::FloatRect area, Shot& monsterShot)
     
     // Random
     std::srand((unsigned) time(0));
+    
+    level = 1;
     
     positionMonsters();
 }
@@ -91,7 +94,27 @@ int MonsterMatrix::strikeWith(Shot& shot)
         for (int col = 0; col < columns; col++)
         {
             if (monsters[row][col]->alive && monsters[row][col]->collides(shot)) {
-                return rows - row; // higher row, higher score
+                bool anyAlive = false;
+                
+                for (int row = 0; row < rows; row++)
+                    for (int col = 0; col < columns; col++)
+                        if (monsters[row][col]->alive)
+                            anyAlive = true;
+                
+                if (!anyAlive) {
+                    level++;
+                    stepDelay -= 25;
+                    origin.x = sandBox.left;
+                    origin.y = sandBox.top;
+                    positionMonsters();
+                    for (int row = 0; row < rows; row++)
+                        for (int col = 0; col < columns; col++)
+                            monsters[row][col]->alive = true;
+                    firstAliveCol = 0;
+                    lastAliveCol = columns - 1;
+                }
+                
+                return (rows - row) * level; // higher row, higher score
             }
         }
     }
@@ -106,7 +129,7 @@ void MonsterMatrix::step()
     // Delay
     if (stepCounter--)
         return;
-    stepCounter = MATRIX_STEP_DELAY;
+    stepCounter = stepDelay;
     
     randomShot();
     
@@ -192,6 +215,7 @@ void MonsterMatrix::randomShot()
     shooter = monsters[row][col];
     
     if (willShot) {
-        shot->spawnAt(shooter->sprite.getPosition().x, shooter->sprite.getPosition().y);
+        float x = shooter->sprite.getPosition().x + shooter->sprite.getTexture()->getSize().x / 2;
+        shot->spawnAt(x, shooter->sprite.getPosition().y);
     }
 }

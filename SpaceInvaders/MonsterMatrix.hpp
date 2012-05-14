@@ -11,7 +11,7 @@ class MonsterMatrix : public sf::Drawable
 {
     sf::Texture texture;
     
-    const static int columns = 11, rows = 5;
+    const static int columns = 4, rows = 2;
     Monster * monsters[rows][columns];
     Shot * shot;
     
@@ -27,9 +27,11 @@ class MonsterMatrix : public sf::Drawable
     int firstAliveCol, lastAliveCol;
     bool isColumnAlive(int);
     
+    float stepDelay;
     void randomShot();
     
 public:
+    int level;
     MonsterMatrix(sf::FloatRect, Shot&);
     ~MonsterMatrix();
     
