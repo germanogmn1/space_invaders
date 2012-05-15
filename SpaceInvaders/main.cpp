@@ -6,6 +6,7 @@
 
 #include "MonsterMatrix.hpp"
 #include "Shot.hpp"
+#include "Barrier.hpp"
 
 #define WIN_W 800
 #define WIN_H 600
@@ -48,8 +49,13 @@ int main (int argc, const char * argv[])
     sf::Vector2f bonusShipPos(0, 35);
     bonusShipSprite.setPosition(bonusShipPos);
     
+    // Shots
     Shot shipShot(shotTexture, Shot::UP, 0.6);
     Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
+    
+    // Barriers
+    Barrier leftBarrier(sf::Vector2f(100, 450));
+    Barrier rightBarrier(sf::Vector2f(600, 450));
     
     // Font for interface
     sf::Font font;
@@ -129,12 +135,18 @@ int main (int argc, const char * argv[])
         
         // Move objects
         matrix.step();
+        if (matrix.gotOffSandBox()) {
+            gameOverScreen(window, score, font);
+            return EXIT_SUCCESS;
+        }
+        
         shipShot.step();
         monsterShot.step();
         
         // Bonus ship
         if (isBonusShipAlive) {
             if (bonusShipPos.x > WIN_W) {
+                // got off the screen
                 isBonusShipAlive = false;
             }
             else {
@@ -149,7 +161,6 @@ int main (int argc, const char * argv[])
             }
         }
         
-        
         // Handle collisions
         if (monsterShot.alive &&
             monsterShot.sprite.getGlobalBounds().intersects(shipSprite.getGlobalBounds())) {
@@ -157,7 +168,6 @@ int main (int argc, const char * argv[])
             monsterShot.alive = false;
         }
         
-        // Handle collisions
         if (shipShot.alive &&
             shipShot.sprite.getGlobalBounds().intersects(bonusShipSprite.getGlobalBounds())) {
             isBonusShipAlive = false;
@@ -172,6 +182,10 @@ int main (int argc, const char * argv[])
         }
         
         score += matrix.strikeWith(shipShot);
+        leftBarrier.strikeWith(shipShot);
+        leftBarrier.strikeWith(monsterShot);
+        rightBarrier.strikeWith(shipShot);
+        rightBarrier.strikeWith(monsterShot);
         
         // Score text
         char scoreBuffer[20];
@@ -200,6 +214,8 @@ int main (int argc, const char * argv[])
         window.draw(scoreText);
         window.draw(levelText);
         window.draw(livesText);
+        window.draw(leftBarrier);
+        window.draw(rightBarrier);
         
         if (isBonusShipAlive) {
             window.draw(bonusShipSprite);

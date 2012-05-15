@@ -34,6 +34,7 @@ public:
     int level;
     MonsterMatrix(sf::FloatRect, Shot&);
     ~MonsterMatrix();
+    bool gotOffSandBox();
     
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
     

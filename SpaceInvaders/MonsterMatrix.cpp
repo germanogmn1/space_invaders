@@ -219,3 +219,12 @@ void MonsterMatrix::randomShot()
         shot->spawnAt(x, shooter->sprite.getPosition().y);
     }
 }
+
+bool MonsterMatrix::gotOffSandBox()
+{
+    // last row monster
+    sf::FloatRect monsterBox = monsters[rows - 1][0]->sprite.getGlobalBounds();
+    if (monsterBox.top + monsterBox.height > sandBox.top + sandBox.height)
+        return true;
+    return false;
+}
