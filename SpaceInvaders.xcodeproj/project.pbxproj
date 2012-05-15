@@ -32,6 +32,10 @@
 		5DE3700E1562FB7B00E4D499 /* barrier_tl_dmg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE3700D1562FB7B00E4D499 /* barrier_tl_dmg.png */; };
 		5DE370101562FB8A00E4D499 /* barrier_br_dmg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE3700F1562FB8A00E4D499 /* barrier_br_dmg.png */; };
 		5DE370121562FB9400E4D499 /* barrier_bl_dmg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE370111562FB9400E4D499 /* barrier_bl_dmg.png */; };
+		5DE370141562FE1100E4D499 /* shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DE370131562FE1100E4D499 /* shot.wav */; };
+		5DE370161563008F00E4D499 /* player_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DE370151563008F00E4D499 /* player_hit.wav */; };
+		5DE37018156301FB00E4D499 /* monster_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DE37017156301FB00E4D499 /* monster_hit.wav */; };
+		5DE3701A1563035F00E4D499 /* bonus_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DE370191563035F00E4D499 /* bonus_hit.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +72,10 @@
 		5DE3700D1562FB7B00E4D499 /* barrier_tl_dmg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrier_tl_dmg.png; sourceTree = "<group>"; };
 		5DE3700F1562FB8A00E4D499 /* barrier_br_dmg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrier_br_dmg.png; sourceTree = "<group>"; };
 		5DE370111562FB9400E4D499 /* barrier_bl_dmg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrier_bl_dmg.png; sourceTree = "<group>"; };
+		5DE370131562FE1100E4D499 /* shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot.wav; sourceTree = "<group>"; };
+		5DE370151563008F00E4D499 /* player_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = player_hit.wav; sourceTree = "<group>"; };
+		5DE37017156301FB00E4D499 /* monster_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = monster_hit.wav; sourceTree = "<group>"; };
+		5DE370191563035F00E4D499 /* bonus_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bonus_hit.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,10 +141,14 @@
 			isa = PBXGroup;
 			children = (
 				5DE3700D1562FB7B00E4D499 /* barrier_tl_dmg.png */,
+				5DE370131562FE1100E4D499 /* shot.wav */,
 				5DE3700B1562FB7100E4D499 /* barrier_tr_dmg.png */,
+				5DE37017156301FB00E4D499 /* monster_hit.wav */,
 				5DE370111562FB9400E4D499 /* barrier_bl_dmg.png */,
 				5DE3700F1562FB8A00E4D499 /* barrier_br_dmg.png */,
 				5DDB539A1561ADBF00CDAC59 /* bonus_ship.png */,
+				5DE370151563008F00E4D499 /* player_hit.wav */,
+				5DE370191563035F00E4D499 /* bonus_hit.wav */,
 				5D183AEF1559A2B800515B83 /* Andale Mono.ttf */,
 				5D183AEC15599F4E00515B83 /* game_over.png */,
 				5D104108155990AD00B06F0A /* splash.png */,
@@ -229,6 +241,10 @@
 				5DE3700E1562FB7B00E4D499 /* barrier_tl_dmg.png in Resources */,
 				5DE370101562FB8A00E4D499 /* barrier_br_dmg.png in Resources */,
 				5DE370121562FB9400E4D499 /* barrier_bl_dmg.png in Resources */,
+				5DE370141562FE1100E4D499 /* shot.wav in Resources */,
+				5DE370161563008F00E4D499 /* player_hit.wav in Resources */,
+				5DE37018156301FB00E4D499 /* monster_hit.wav in Resources */,
+				5DE3701A1563035F00E4D499 /* bonus_hit.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include "ResourcePath.hpp"
 
 #include "MonsterMatrix.hpp"
@@ -39,6 +38,8 @@ int main (int argc, const char * argv[])
     sf::Texture shotTexture;
     if (!shotTexture.loadFromFile(resourcePath() + "shot.png"))
         return EXIT_FAILURE;
+    Shot shipShot(shotTexture, Shot::UP, 0.6);
+    Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
     
     // Load Bonus Ship
     sf::Texture bonusShipTexture;
@@ -48,10 +49,6 @@ int main (int argc, const char * argv[])
     bool isBonusShipAlive = false;
     sf::Vector2f bonusShipPos(0, 35);
     bonusShipSprite.setPosition(bonusShipPos);
-    
-    // Shots
-    Shot shipShot(shotTexture, Shot::UP, 0.6);
-    Shot monsterShot(shotTexture, Shot::DOWN, 0.3);
     
     // Barriers
     Barrier leftBarrier(sf::Vector2f(100, 450));
@@ -84,6 +81,24 @@ int main (int argc, const char * argv[])
     
     // Load Monsters
     MonsterMatrix matrix(sf::FloatRect(20, 60, 760, 380), monsterShot);
+    
+    // Sounds
+    sf::SoundBuffer shotBuffer;
+    shotBuffer.loadFromFile(resourcePath() + "shot.wav");
+    sf::Sound shotSound(shotBuffer);
+    
+    sf::SoundBuffer playerHitBuffer;
+    playerHitBuffer.loadFromFile(resourcePath() + "player_hit.wav");
+    sf::Sound playerHitSound(playerHitBuffer);
+    
+    sf::SoundBuffer monsterHitBuffer;
+    monsterHitBuffer.loadFromFile(resourcePath() + "monster_hit.wav");
+    sf::Sound monsterHitSound(monsterHitBuffer);
+    
+    sf::SoundBuffer bonusHitBuffer;
+    bonusHitBuffer.loadFromFile(resourcePath() + "bonus_hit.wav");
+    sf::Sound bonusHitSound(bonusHitBuffer);
+    
     
     // =============
     // Splash Screen
@@ -130,6 +145,7 @@ int main (int argc, const char * argv[])
                     shipRect.width / 2 + shipRect.left,
                     shipSprite.getPosition().y
                 );
+                shotSound.play();
             }
         }
         
@@ -162,18 +178,23 @@ int main (int argc, const char * argv[])
         }
         
         // Handle collisions
+        
         if (monsterShot.alive &&
             monsterShot.sprite.getGlobalBounds().intersects(shipSprite.getGlobalBounds())) {
+            // monster hit player
             lives--;
+            playerHitSound.play();
             monsterShot.alive = false;
         }
         
-        if (shipShot.alive &&
+        if (isBonusShipAlive && shipShot.alive &&
             shipShot.sprite.getGlobalBounds().intersects(bonusShipSprite.getGlobalBounds())) {
+            // player hit bonus ship
             isBonusShipAlive = false;
             bonusShipPos.x = 0;
             score += 50;
             shipShot.alive = false;
+            bonusHitSound.play();
         }
         
         if (!lives) {
@@ -181,7 +202,13 @@ int main (int argc, const char * argv[])
             return EXIT_SUCCESS;
         }
         
-        score += matrix.strikeWith(shipShot);
+        int hit;
+        hit = matrix.strikeWith(shipShot);
+        if (hit) {
+            monsterHitSound.play();
+            score += hit;
+        }
+        
         leftBarrier.strikeWith(shipShot);
         leftBarrier.strikeWith(monsterShot);
         rightBarrier.strikeWith(shipShot);
@@ -232,7 +259,6 @@ sf::Vector2f getSpriteCenter(sf::Sprite &sprite)
     sf::FloatRect rect = sprite.getGlobalBounds();
     return sf::Vector2f(rect.width / 2 + rect.left, rect.height / 2 + rect.top);
 }
-
 
 void splashScreen(sf::RenderWindow& window)
 {
