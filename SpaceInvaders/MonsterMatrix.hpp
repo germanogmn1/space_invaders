@@ -9,9 +9,10 @@
 
 class MonsterMatrix : public sf::Drawable
 {
-    sf::Texture texture;
-    
     const static int columns = 10, rows = 5;
+    
+    sf::Texture texture1, texture2, texture3;
+    
     Monster * monsters[rows][columns];
     Shot * shot;
     

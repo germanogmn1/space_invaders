@@ -14,18 +14,24 @@ MonsterMatrix::MonsterMatrix(sf::FloatRect area, Shot& monsterShot)
 {
     sandBox = area;
     shot = &monsterShot;
-    texture.loadFromFile(resourcePath() + "monster1.png");
+    texture1.loadFromFile(resourcePath() + "monster1.png");
+    texture2.loadFromFile(resourcePath() + "monster2.png");
+    texture3.loadFromFile(resourcePath() + "monster3.png");
+    
+    sf::Texture * rowTextures[] = {
+        &texture3, &texture2, &texture2, &texture1, &texture1
+    };
+    
+    // Load monsters
+    for (int row = 0; row < rows; row++)
+        for (int col = 0; col < columns; col++)
+            monsters[row][col] = new Monster(*rowTextures[row]);
     
     // Initial velocity
     stepDelay = 250;
     stepCounter = stepDelay;
     // Initial direction
     stepToRight = true;
-    
-    // Load monsters
-    for (int row = 0; row < rows; row++)
-        for (int col = 0; col < columns; col++)
-            monsters[row][col] = new Monster(texture);
     
     // Start at top-left of the sandbox
     origin.x = sandBox.left;
